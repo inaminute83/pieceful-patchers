@@ -18,11 +18,49 @@ collections:
         file: "content/site.json"
         fields:
           - { label: "Site Name", name: "siteName", widget: "string" }
+          # Navigation labels
+          - label: "Navigation Labels"
+            name: "nav"
+            widget: "object"
+            fields:
+              - { label: "Home", name: "homeLabel", widget: "string", default: "Home", required: false }
+              - { label: "About", name: "aboutLabel", widget: "string", default: "About", required: false }
+              - { label: "Events", name: "eventsLabel", widget: "string", default: "Events", required: false }
+              - { label: "Gallery", name: "galleryLabel", widget: "string", default: "Gallery", required: false }
+              - { label: "Membership", name: "membershipLabel", widget: "string", default: "Membership", required: false }
+              - { label: "Spotlight", name: "spotlightLabel", widget: "string", default: "Spotlight", required: false }
+              - { label: "Members", name: "membersLabel", widget: "string", default: "Members", required: false }
+              - { label: "Contact", name: "contactLabel", widget: "string", default: "Contact", required: false }
           - { label: "Hero Title Line 1", name: "heroLine1", widget: "string" }
           - { label: "Hero Title Line 2", name: "heroLine2", widget: "string" }
-          - { label: "Hero Paragraph", name: "heroParagraph", widget: "text" }
-          - { label: "Featured Tagline", name: "featuredTagline", widget: "text" }
-          - { label: "Spotlight Bio", name: "spotlightBio", widget: "text" }
-          - { label: "Spotlight Image", name: "spotlightImage", widget: "image" }
-          - { label: "Contact Email", name: "contactEmail", widget: "string" }
-          - { label: "Meeting Line", name: "meetingLine", widget: "string" }
+          - { label: "Hero Paragraph", name: "heroParagraph", widget: "text", required: false }
+          - { label: "Featured Tagline", name: "featuredTagline", widget: "text", required: false }
+          - label: "Featured Images"
+            name: "featuredImages"
+            widget: "object"
+            fields:
+              - { label: "Image 1", name: "img1", widget: "image", required: false }
+              - { label: "Image 2", name: "img2", widget: "image", required: false }
+              - { label: "Image 3", name: "img3", widget: "image", required: false }
+          - { label: "Spotlight Bio", name: "spotlightBio", widget: "text", required: false }
+          - { label: "Spotlight Image", name: "spotlightImage", widget: "image", required: false }
+          - { label: "Contact Email", name: "contactEmail", widget: "string", required: false }
+          - { label: "Meeting Line", name: "meetingLine", widget: "string", required: false }
+
+  - name: "events"
+    label: "Events"
+    editor:
+      preview: false
+    files:
+      - label: "Events List"
+        name: "events"
+        file: "content/events.json"
+        fields:
+          - label: "Events"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", hint: "e.g., Third Wednesday, 7:00 PM" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
