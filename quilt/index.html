@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieceful Patchers of the Park | Home</title>
+  <meta name="description" content="Pieceful Patchers of the Park: Stitching together since 1982. A vibrant community where creativity meets tradition." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Pieceful Patchers of the Park" />
+  <meta property="og:description" content="Stitching together since 1982. A vibrant community where creativity meets tradition." />
+  <meta property="og:image" content="https://piecefulpatchers.com/assets/img/featured1.svg" />
+  <meta property="og:url" content="https://piecefulpatchers.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container flex between center">
+      <a class="logo" href="index.html">Pieceful Patchers of the Park</a>
+      <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a class="active" href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="spotlight.html">Spotlight</a></li>
+          <li><a href="index.html#members-heading">Members</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>
+          <span class="hero-title-line1">Pieceful Patchers of the Park</span>
+          <span class="hero-title-line2">Stitching Together Since 1982</span>
+        </h1>
+        <p>Welcome to our vibrant community of quilters where creativity meets tradition. We share patterns, learn techniques and create beautiful quilts together for both loved ones and charity since the group started in 1982.</p>
+        <div class="actions">
+          <a class="btn" href="events.html">See Upcoming Events</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container featured">
+      <h2>Featured Quilts</h2>
+      <p class="tiny">Showcasing a rotating selection of quilts from guild members — crafted with care, love, color and community. Want yours featured? Share yours at our next meeting!</p>
+      <div class="featured-grid">
+        <figure class="card"><img src="assets/img/featured1.svg" alt="Colorful patchwork quilt" /><figcaption class="tiny">Patchwork Showcase</figcaption></figure>
+        <figure class="card"><img src="assets/img/featured2.svg" alt="Star block quilt" /><figcaption class="tiny">Star Blocks</figcaption></figure>
+        <figure class="card"><img src="assets/img/featured3.svg" alt="Modern geometric quilt" /><figcaption class="tiny">Modern Geometrics</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="features container grid three">
+      <article class="card">
+        <h3>Community</h3>
+        <p>Meet fellow quilters, share skills, and find inspiration in a welcoming environment.</p>
+      </article>
+      <article class="card">
+        <h3>Workshops</h3>
+        <p>Learn new techniques from experienced members and guest instructors.</p>
+      </article>
+      <article class="card">
+        <h3>Show & Tell</h3>
+        <p>Showcase your quilts and discover the stories behind others' creations.</p>
+      </article>
+    </section>
+
+    <section class="container split">
+      <div>
+        <h2>Upcoming Highlights</h2>
+        <ul class="list">
+          <li><strong>Monthly Meeting:</strong> Third Wednesday, 7:00 PM – Williston Park Town Hall</li>
+          <li><strong>Workshop:</strong> Hand Quilting Basics – Oct 12</li>
+          <li><strong>Charity Sew Day:</strong> Holiday Quilts – Nov 9</li>
+        </ul>
+        <a class="btn" href="events.html">View All Events</a>
+      </div>
+      <div class="callout">
+        <h3>Monthly Member Spotlight</h3>
+        <p>Each month we feature a member and their quilting journey. Come to our meeting to see the spotlight live!</p>
+
+        <figure class="spotlight-photo card">
+          <img id="spotlight-image" src="assets/img/spotlight-placeholder.svg" alt="Member spotlight quilt or portrait placeholder" />
+          <figcaption class="tiny">Member Spotlight Photo</figcaption>
+        </figure>
+
+        <div class="dropzone" id="spotlight-dropzone">
+          <input type="file" id="spotlight-upload" accept="image/*" aria-label="Upload spotlight image" />
+          <p class="tiny">Drop an image here or click to upload. This only previews locally (no upload).</p>
+        </div>
+        <p class="tiny" style="margin-top:.25rem">To set a permanent spotlight image on the site, place your image in <code>assets/img/</code> and update the <code>src</code> of the spotlight image in <code>index.html</code>.</p>
+
+        <details class="waitlist" aria-labelledby="waitlist-summary">
+          <summary id="waitlist-summary">Want to become a member? Join our waitlist</summary>
+          <form name="waitlist" method="POST" action="thank-you.html" data-netlify="true" netlify-honeypot="bot-field" class="waitlist-form" style="margin-top: .75rem;">
+            <input type="hidden" name="form-name" value="waitlist" />
+            <p class="hidden"><label>Don’t fill this out if you're human: <input name="bot-field" /></label></p>
+
+            <div class="grid two">
+              <label>
+                Full Name
+                <input type="text" name="full_name" required />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" required />
+              </label>
+              <label>
+                Address Line 1
+                <input type="text" name="address_line1" required />
+              </label>
+              <label>
+                Address Line 2 (optional)
+                <input type="text" name="address_line2" />
+              </label>
+              <label>
+                City
+                <input type="text" name="city" required />
+              </label>
+              <label>
+                State / Province
+                <input type="text" name="state" required />
+              </label>
+              <label>
+                ZIP / Postal Code
+                <input type="text" name="zip" required />
+              </label>
+              <label>
+                How did you hear about us?
+                <select name="referral" required>
+                  <option value="">Select one…</option>
+                  <option>Friend/Member</option>
+                  <option>Social Media</option>
+                  <option>Event</option>
+                  <option>Search/Website</option>
+                  <option>Other</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Additional Notes
+              <textarea name="notes" rows="4" placeholder="Tell us about your quilting experience or interests"></textarea>
+            </label>
+
+            <button class="btn primary" type="submit">Join Waitlist</button>
+            <p class="tiny" style="margin-top:.5rem">After you submit, your email app will open to send us your details. We also copy your message to the clipboard in case your mail app doesn’t open automatically.</p>
+          </form>
+        </details>
+
+        <div style="margin-top: .75rem;">
+          <a class="btn primary" href="membership.html">Join the Guild</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="container members" aria-labelledby="members-heading">
+    <h2 id="members-heading">Members Only</h2>
+    <p class="notice">Enter the password provided to members to access private resources.</p>
+    <div class="gate" id="members-gate">
+      <label for="members-password" class="sr-only">Password</label>
+      <input type="password" id="members-password" placeholder="Enter password" aria-label="Members password" />
+      <button class="btn primary" id="members-enter">Enter</button>
+      <span id="members-error" class="tiny" style="color:#c2410c; display:none;">Incorrect password. Please try again.</span>
+    </div>
+    <div class="content hidden" id="members-content">
+      <div class="grid two">
+        <div class="card">
+          <h3>Newsletter Archive</h3>
+          <ul class="list">
+            <li><a href="#">September 2025</a></li>
+            <li><a href="#">August 2025</a></li>
+            <li><a href="#">July 2025</a></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Member Resources</h3>
+          <ul class="list">
+            <li><a href="#">Bylaws (PDF)</a></li>
+            <li><a href="#">Block of the Month Instructions</a></li>
+            <li><a href="#">Volunteer Sign-ups</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container grid two">
+      <div>
+        <h4>Pieceful Patchers of the Park</h4>
+        <p>We foster creativity, community, and continued learning in the quilting arts.</p>
+      </div>
+      <div>
+        <h4>Stay in Touch</h4>
+        <p>Email: <a href="mailto:inaminute083@yahoo.com">inaminute083@yahoo.com</a></p>
+        <p>Meetings: Third Wednesday, 7:00 PM – Williston Park Town Hall</p>
+      </div>
+    </div>
+    <div class="container tiny">© <span id="year"></span> Pieceful Patchers of the Park. All rights reserved.</div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

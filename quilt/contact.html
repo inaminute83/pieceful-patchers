@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieceful Patchers of the Park | Contact</title>
+  <meta name="description" content="Contact Pieceful Patchers of the Park with questions or suggestions." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Contact | Pieceful Patchers of the Park" />
+  <meta property="og:description" content="Get in touch with our guild." />
+  <meta property="og:image" content="https://piecefulpatchers.com/assets/img/featured3.svg" />
+  <meta property="og:url" content="https://piecefulpatchers.com/contact.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container flex between center">
+      <a class="logo" href="index.html">Pieceful Patchers of the Park</a>
+      <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a class="" href="index.html#members-heading">Members</a></li>
+          <li><a class="active" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1>Contact Us</h1>
+    <p>We'd love to hear from you. Send us a note with questions or suggestions.</p>
+
+    <div class="grid two">
+      <form name="contact" method="POST" action="thank-you.html" data-netlify="true" class="card">
+        <input type="hidden" name="form-name" value="contact" />
+        <label>
+          Name
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Message
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <button class="btn primary" type="submit">Send</button>
+        <p class="tiny" style="margin-top:.5rem">After you submit, your email app will open to send us your message. We also copy your message to the clipboard in case your mail app doesn’t open automatically.</p>
+      </form>
+
+      <div class="card">
+        <h3>Location</h3>
+        <p>Community Center, 123 Main St, Hometown, ST</p>
+        <div class="map">
+          <iframe title="map" src="https://maps.google.com/maps?q=123%20Main%20St&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container tiny">© <span id="year"></span> Pieceful Patchers of the Park. All rights reserved.</div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieceful Patchers of the Park | Membership</title>
+  <meta name="description" content="Membership benefits and how to join Pieceful Patchers of the Park." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Membership | Pieceful Patchers of the Park" />
+  <meta property="og:description" content="Learn about benefits and how to join our guild." />
+  <meta property="og:image" content="https://piecefulpatchers.com/assets/img/featured2.svg" />
+  <meta property="og:url" content="https://piecefulpatchers.com/membership.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container flex between center">
+      <a class="logo" href="index.html">Pieceful Patchers of the Park</a>
+      <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a class="active" href="membership.html">Membership</a></li>
+          <li><a href="index.html#members-heading">Members</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1>Membership</h1>
+    <p>Join our community of quilters! Membership is open to all levels.</p>
+
+    <h2>Benefits</h2>
+    <ul class="list">
+      <li>Monthly programs and workshops</li>
+      <li>Member-only resources and newsletter</li>
+      <li>Participate in shows, swaps, and charity projects</li>
+      <li>Connect with a supportive quilting community</li>
+    </ul>
+
+    <h2>Dues</h2>
+    <p>Annual dues: $40. Scholarships available upon request.</p>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>Join Online</h3>
+        <form name="membership" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="membership" />
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Experience Level
+            <select name="level">
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </label>
+          <button class="btn primary" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Paper Form</h3>
+        <p>Prefer to mail a form? Download and print:</p>
+        <a class="btn" href="assets/forms/membership.pdf" download>Download PDF</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container tiny">© <span id="year"></span> Pieceful Patchers of the Park. All rights reserved.</div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

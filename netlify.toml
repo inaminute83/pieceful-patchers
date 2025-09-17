@@ -1,0 +1,8 @@
+[build]
+publish = "quilt"
+
+# Optional: clean URLs (no .html) and force trailing slash
+# [[redirects]]
+#   from = "/about"
+#   to = "/about.html"
+#   status = 200

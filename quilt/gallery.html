@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieceful Patchers of the Park | Gallery</title>
+  <meta name="description" content="Gallery of quilts by Pieceful Patchers of the Park members." />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Gallery | Pieceful Patchers of the Park" />
+  <meta property="og:description" content="Browse quilts created by our members." />
+  <meta property="og:image" content="https://piecefulpatchers.com/assets/img/featured1.svg" />
+  <meta property="og:url" content="https://piecefulpatchers.com/gallery.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container flex between center">
+      <a class="logo" href="index.html">Pieceful Patchers of the Park</a>
+      <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a class="active" href="gallery.html">Gallery</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="index.html#members-heading">Members</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1>Gallery</h1>
+    <p>A selection of quilts from our talented members.</p>
+
+    <div class="gallery-grid" id="gallery">
+      <a href="assets/img/q1.jpg" class="gallery-item"><img src="assets/img/q1.jpg" alt="Quilt 1" /></a>
+      <a href="assets/img/q2.jpg" class="gallery-item"><img src="assets/img/q2.jpg" alt="Quilt 2" /></a>
+      <a href="assets/img/q3.jpg" class="gallery-item"><img src="assets/img/q3.jpg" alt="Quilt 3" /></a>
+      <a href="assets/img/q4.jpg" class="gallery-item"><img src="assets/img/q4.jpg" alt="Quilt 4" /></a>
+      <a href="assets/img/q5.jpg" class="gallery-item"><img src="assets/img/q5.jpg" alt="Quilt 5" /></a>
+      <a href="assets/img/q6.jpg" class="gallery-item"><img src="assets/img/q6.jpg" alt="Quilt 6" /></a>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button class="lightbox-close" aria-label="Close">×</button>
+    <img class="lightbox-image" alt="Expanded quilt image" />
+  </div>
+
+  <footer class="site-footer">
+    <div class="container grid two">
+      <div>
+        <h4>Pieceful Patchers of the Park</h4>
+        <p>We foster creativity, community, and continued learning in the quilting arts.</p>
+      </div>
+      <div>
+        <h4>Stay in Touch</h4>
+        <p>Email: <a href="mailto:inaminute083@yahoo.com">inaminute083@yahoo.com</a></p>
+      </div>
+    </div>
+    <div class="container tiny">© <span id="year"></span> Pieceful Patchers of the Park. All rights reserved.</div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
