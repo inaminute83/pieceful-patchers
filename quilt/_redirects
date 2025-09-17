@@ -1,4 +1,4 @@
-/:page /:page.html 200
+/:page /:page.html 301
 /about /about.html 200
 /events /events.html 200
 /gallery /gallery.html 200
