@@ -1,8 +1,37 @@
 [build]
 publish = "quilt"
 
-# Optional: clean URLs (no .html) and force trailing slash
-# [[redirects]]
-#   from = "/about"
-#   to = "/about.html"
-#   status = 200
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 200
+
+[[redirects]]
+  from = "/events"
+  to = "/events.html"
+  status = 200
+
+[[redirects]]
+  from = "/gallery"
+  to = "/gallery.html"
+  status = 200
+
+[[redirects]]
+  from = "/membership"
+  to = "/membership.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/spotlight"
+  to = "/spotlight.html"
+  status = 200
+
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 200
