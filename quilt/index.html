@@ -53,7 +53,7 @@
 
     <section class="container featured">
       <h2>Featured Quilts</h2>
-      <p class="tiny">Showcasing a rotating selection of quilts from guild members — crafted with care, love, color and community. Want yours featured? Share yours at our next meeting!</p>
+      <p id="featured-tagline" class="tiny">Showcasing a rotating selection of quilts from guild members — crafted with care, love, color and community. Want yours featured? Share yours at our next meeting!</p>
       <div class="featured-grid">
         <figure class="card"><img src="assets/img/featured1.svg" alt="Colorful patchwork quilt" /><figcaption class="tiny">Patchwork Showcase</figcaption></figure>
         <figure class="card"><img src="assets/img/featured2.svg" alt="Star block quilt" /><figcaption class="tiny">Star Blocks</figcaption></figure>
@@ -80,7 +80,7 @@
       <div>
         <h2>Upcoming Highlights</h2>
         <ul class="list">
-          <li><strong>Monthly Meeting:</strong> Third Wednesday, 7:00 PM – Williston Park Town Hall</li>
+          <li id="meeting-line"><strong>Monthly Meeting:</strong> Third Wednesday, 7:00 PM – Williston Park Town Hall</li>
           <li><strong>Workshop:</strong> Hand Quilting Basics – Oct 12</li>
           <li><strong>Charity Sew Day:</strong> Holiday Quilts – Nov 9</li>
         </ul>
@@ -88,7 +88,7 @@
       </div>
       <div class="callout">
         <h3>Monthly Member Spotlight</h3>
-        <p>Each month we feature a member and their quilting journey. Come to our meeting to see the spotlight live!</p>
+        <p id="spotlight-bio">Each month we feature a member and their quilting journey. Come to our meeting to see the spotlight live!</p>
 
         <figure class="spotlight-photo card">
           <img id="spotlight-image" src="assets/img/spotlight-placeholder.svg" alt="Member spotlight quilt or portrait placeholder" />
@@ -103,9 +103,7 @@
 
         <details class="waitlist" aria-labelledby="waitlist-summary">
           <summary id="waitlist-summary">Want to become a member? Join our waitlist</summary>
-          <form name="waitlist" method="POST" action="thank-you.html" data-netlify="true" netlify-honeypot="bot-field" class="waitlist-form" style="margin-top: .75rem;">
-            <input type="hidden" name="form-name" value="waitlist" />
-            <p class="hidden"><label>Don’t fill this out if you're human: <input name="bot-field" /></label></p>
+          <form name="waitlist" method="GET" action="mailto:inaminute083@yahoo.com" enctype="text/plain" class="waitlist-form" style="margin-top: .75rem;">
 
             <div class="grid two">
               <label>

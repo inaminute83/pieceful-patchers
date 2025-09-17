@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Pieceful Patchers</title>
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;background:#f7f7fb;color:#111;margin:0}
+    .wrap{max-width:980px;margin:2rem auto;padding:0 1rem}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .logo{font-weight:700}
+    .notice{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:1rem;margin:1rem 0}
+    .notice h2{margin:.2rem 0 .5rem;font-size:1.1rem}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">Pieceful Patchers Admin</div>
+      <a href="/" style="text-decoration:none">← Back to site</a>
+    </header>
+
+    <div id="identity-setup" class="notice">
+      <h2>First-time setup</h2>
+      <ol>
+        <li>In Netlify → Identity → Enable Identity → Registration: Invite only.</li>
+        <li>Click "Invite users" and send an invite to your email address.</li>
+        <li>In Netlify → Identity → Services → Enable Git Gateway.</li>
+        <li>Return here and click the "Login" button below.</li>
+      </ol>
+    </div>
+
+    <button id="login" class="notice">Login</button>
+  </div>
+
+  <!-- Netlify Identity Widget (for login) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Decap CMS (Netlify CMS) -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Show/Hide first-time setup note depending on Identity
+    function updateIdentityHint(){
+      var el = document.getElementById('identity-setup');
+      if (!el) return;
+      if (window.netlifyIdentity) {
+        el.classList.add('hidden');
+      }
+    }
+    updateIdentityHint();
+
+    // Hook up Login button
+    document.getElementById('login').addEventListener('click', function(){
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.open();
+        window.netlifyIdentity.on('login', () => window.location.reload());
+      } else {
+        alert('Netlify Identity not available. Make sure Identity and Git Gateway are enabled in Netlify.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+backend:
+  name: git-gateway
+  branch: main
+media_folder: "assets/img/uploads"
+public_folder: "/assets/img/uploads"
+publish_mode: editorial_workflow
+local_backend: false
+
+collections:
+  - name: "site"
+    label: "Site Content"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - label: "Main Site Settings"
+        name: "settings"
+        file: "content/site.json"
+        fields:
+          - { label: "Site Name", name: "siteName", widget: "string" }
+          - { label: "Hero Title Line 1", name: "heroLine1", widget: "string" }
+          - { label: "Hero Title Line 2", name: "heroLine2", widget: "string" }
+          - { label: "Hero Paragraph", name: "heroParagraph", widget: "text" }
+          - { label: "Featured Tagline", name: "featuredTagline", widget: "text" }
+          - { label: "Spotlight Bio", name: "spotlightBio", widget: "text" }
+          - { label: "Spotlight Image", name: "spotlightImage", widget: "image" }
+          - { label: "Contact Email", name: "contactEmail", widget: "string" }
+          - { label: "Meeting Line", name: "meetingLine", widget: "string" }

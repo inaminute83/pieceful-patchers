@@ -45,6 +45,56 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') close(); });
 })();
 
+// CMS content loader: inject values from content/site.json into the DOM
+(function(){
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('content/site.json', { cache: 'no-store' })
+      .then((r)=> r.ok ? r.json() : null)
+      .then((data)=>{
+        if (!data) return;
+        // Hero
+        const l1 = document.querySelector('.hero .hero-title-line1');
+        const l2 = document.querySelector('.hero .hero-title-line2');
+        const hp = document.querySelector('.hero + p, .hero .container > p');
+        if (l1 && data.heroLine1) l1.textContent = data.heroLine1;
+        if (l2 && data.heroLine2) l2.textContent = data.heroLine2;
+        if (hp && data.heroParagraph) hp.textContent = data.heroParagraph;
+
+        // Featured tagline
+        const ft = document.getElementById('featured-tagline');
+        if (ft && data.featuredTagline) ft.textContent = data.featuredTagline;
+
+        // Spotlight
+        const sb = document.getElementById('spotlight-bio');
+        if (sb && data.spotlightBio) sb.textContent = data.spotlightBio;
+        const si = document.getElementById('spotlight-image');
+        if (si && data.spotlightImage) si.src = data.spotlightImage;
+
+        // Contact email (update all mailto links)
+        if (data.contactEmail) {
+          document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
+            a.href = `mailto:${data.contactEmail}`;
+            a.textContent = data.contactEmail;
+          });
+        }
+
+        // Meeting line
+        const ml = document.getElementById('meeting-line');
+        if (ml && data.meetingLine) {
+          // keep the <strong> label if present
+          const strong = ml.querySelector('strong');
+          if (strong) {
+            strong.nextSibling && strong.parentNode.removeChild(strong.nextSibling);
+            strong.insertAdjacentText('afterend', ' ' + data.meetingLine.replace(/^\s*Monthly Meeting:\s*/i, ''));
+          } else {
+            ml.textContent = data.meetingLine;
+          }
+        }
+      })
+      .catch(()=>{});
+  });
+})();
+
 // Members-only simple gate
 (function(){
   const PASSWORD = 'Quilt2025';
