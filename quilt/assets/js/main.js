@@ -200,4 +200,25 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
       openMailTo(subject, bodyLines.join('\n'));
     });
   }
+
+  // Membership form
+  const membershipForm = document.querySelector('form[name="membership"]');
+  if (membershipForm) {
+    membershipForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const get = (sel) => (membershipForm.querySelector(sel)?.value || '').trim();
+      const name = get('input[name="name"]');
+      const email = get('input[name="email"]');
+      const level = membershipForm.querySelector('select[name="level"]')?.value || '';
+
+      const subject = `Membership Application: ${name || 'Unknown'}`;
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Experience Level: ${level}`
+      ].join('\n');
+
+      openMailTo(subject, body);
+    });
+  }
 })();

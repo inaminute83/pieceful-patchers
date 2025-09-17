@@ -54,8 +54,7 @@
     <div class="grid two">
       <div class="card">
         <h3>Join Online</h3>
-        <form name="membership" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="membership" />
+        <form name="membership" method="GET" action="mailto:inaminute083@yahoo.com" enctype="text/plain">
           <label>
             Name
             <input type="text" name="name" required />
@@ -73,6 +72,7 @@
             </select>
           </label>
           <button class="btn primary" type="submit">Submit</button>
+          <p class="tiny" style="margin-top:.5rem">After you submit, your email app will open to send us your application. We also copy your message to the clipboard in case your mail app doesn’t open automatically.</p>
         </form>
       </div>
       <div class="card">
