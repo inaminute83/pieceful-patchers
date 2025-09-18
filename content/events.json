@@ -1,0 +1,52 @@
+{
+  "items": [
+    {
+      "title": "Open Sew",
+      "date": "Oct. 9th",
+      "location": "Williston Park Town Hall",
+      "description": "Crayon quilt coloring"
+    },
+    {
+      "date": "Dec. 17th 6pm",
+      "title": "Holiday Party",
+      "location": "Williston Park Town Hall",
+      "description": "If your last name begins with A-L please bring a dessert if your last name begins with M-Z please bring an appetizer."
+    },
+    {
+      "title": "Charity Quilts are due TODAY",
+      "date": "Jan. 21st 7pm",
+      "location": "Williston Park Town Hall",
+      "description": "3 yard charity Quilts are due at tonight's meeting. Check the patterns section to see the pattern."
+    },
+    {
+      "title": "Jan Meeting",
+      "date": "Jan. 21st 7pm",
+      "location": "Williston Park Town Hall",
+      "description": "Don't forget charity Quilts are due at tonight's meeting."
+    },
+    {
+      "title": "February Meeting",
+      "date": "Feb. 18th, 7pm",
+      "location": "Williston Park Town Hall",
+      "description": "Don't forget your 3 yard charity Quilts are due tonight."
+    },
+    {
+      "date": "Mar. 28th 12-4?",
+      "title": "National quilt day",
+      "location": "Williston Park Town Hall",
+      "description": "Today we will be sewing the thread (spool of thread) quilt, please see the Patterns section for the printable pattern."
+    },
+    {
+      "title": "March Meeting",
+      "date": "Mar. 18th 7pm",
+      "location": "Williston Park Town Hall",
+      "description": " "
+    },
+    {
+      "title": "December Meeting",
+      "date": "Dec. 17th 6pm",
+      "location": "Williston Park Town Hall",
+      "description": "Don't forget the meeting starts at 6 tonight, it's our Holiday party. Let's celebrate and enjoy teachers company."
+    }
+  ]
+}
