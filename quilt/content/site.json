@@ -1,9 +1,24 @@
 {
   "siteName": "Pieceful Patchers of the Park",
+  "nav": {
+    "homeLabel": "Home",
+    "aboutLabel": "About",
+    "eventsLabel": "Events",
+    "galleryLabel": "Gallery",
+    "membershipLabel": "Membership",
+    "spotlightLabel": "Spotlight",
+    "membersLabel": "Members",
+    "contactLabel": "Contact"
+  },
   "heroLine1": "Pieceful Patchers of the Park",
   "heroLine2": "Stitching Together Since 1982",
   "heroParagraph": "Welcome to our vibrant community of quilters where creativity meets tradition. We share patterns, learn techniques and create beautiful quilts together for both loved ones and charity since the group started in 1982.",
   "featuredTagline": "Showcasing a rotating selection of quilts from guild members — crafted with care, love, color and community. Want yours featured? Share yours at our next meeting!",
+  "featuredImages": [
+    { "src": "assets/img/featured1.svg", "caption": "Patchwork Showcase" },
+    { "src": "assets/img/featured2.svg", "caption": "Star Blocks" },
+    { "src": "assets/img/featured3.svg", "caption": "Modern Geometrics" }
+  ],
   "spotlightBio": "Each month we feature a member and their quilting journey. Come to our meeting to see the spotlight live!",
   "spotlightImage": "assets/img/spotlight-placeholder.svg",
   "contactEmail": "inaminute083@yahoo.com",

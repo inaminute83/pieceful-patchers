@@ -1,0 +1,14 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Node / Python (in case added later)
+node_modules/
+*.pyc
+__pycache__/
+
+# Git / Editor
+.git/
+.vscode/

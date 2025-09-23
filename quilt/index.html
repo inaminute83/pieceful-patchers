@@ -171,7 +171,11 @@
       <label for="members-password" class="sr-only">Password</label>
       <input type="password" id="members-password" placeholder="Enter password" aria-label="Members password" />
       <button class="btn primary" id="members-enter">Enter</button>
-      <span id="members-error" class="tiny" style="color:#c2410c; display:none;">Incorrect password. Please try again.</span>
+      <label class="tiny" style="display:inline-flex; align-items:center; gap:.25rem; margin-left:.5rem;">
+        <input type="checkbox" id="members-show" aria-label="Show password" /> Show
+      </label>
+      <span id="members-caps" class="tiny" style="color:#92400e; display:none; margin-left:.5rem;">Caps Lock is ON</span>
+      <span id="members-error" class="tiny" style="color:#c2410c; display:none; margin-left:.5rem;">Incorrect password. Please try again.</span>
     </div>
     <div class="content hidden" id="members-content">
       <div class="grid two">
@@ -191,6 +195,13 @@
             <li><a href="#">Volunteer Sign-ups</a></li>
           </ul>
         </div>
+      </div>
+      <div style="margin-top: .75rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+        <a class="btn" href="newsletters.html">View Newsletters</a>
+        <a class="btn" href="resources.html">Member Resources</a>
+      </div>
+      <div style="margin-top: .5rem;">
+        <button class="btn" id="members-logout" type="button">Logout</button>
       </div>
     </div>
   </section>

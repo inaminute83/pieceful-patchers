@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "title": "Monthly Meeting",
+      "date": "Third Wednesday, 7:00 PM",
+      "location": "Williston Park Town Hall",
+      "description": "Member Show & Tell and skill-share."
+    },
+    {
+      "title": "Workshop: Hand Quilting Basics",
+      "date": "Oct 12",
+      "location": "Community Center",
+      "description": "Learn hand quilting techniques with experienced members."
+    },
+    {
+      "title": "Charity Sew Day: Holiday Quilts",
+      "date": "Nov 9",
+      "location": "Community Center",
+      "description": "Join us to make quilts for local shelters and hospitals."
+    }
+  ]
+}
