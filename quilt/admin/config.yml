@@ -35,13 +35,14 @@ collections:
           - { label: "Hero Title Line 2", name: "heroLine2", widget: "string" }
           - { label: "Hero Paragraph", name: "heroParagraph", widget: "text", required: false }
           - { label: "Featured Tagline", name: "featuredTagline", widget: "text", required: false }
-          - label: "Featured Images"
+          - label: "Featured Quilts"
             name: "featuredImages"
-            widget: "object"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            hint: "Add as many featured quilts as you like. Reorder to change display order."
             fields:
-              - { label: "Image 1", name: "img1", widget: "image", required: false }
-              - { label: "Image 2", name: "img2", widget: "image", required: false }
-              - { label: "Image 3", name: "img3", widget: "image", required: false }
+              - { label: "Image", name: "src", widget: "image" }
+              - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
           - { label: "Spotlight Bio", name: "spotlightBio", widget: "text", required: false }
           - { label: "Spotlight Image", name: "spotlightImage", widget: "image", required: false }
           - { label: "Contact Email", name: "contactEmail", widget: "string", required: false }
@@ -64,3 +65,36 @@ collections:
               - { label: "Date", name: "date", widget: "string", hint: "e.g., Third Wednesday, 7:00 PM" }
               - { label: "Location", name: "location", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
+
+  - name: "resources"
+    label: "Member Resources"
+    editor:
+      preview: false
+    files:
+      - label: "Resources List"
+        name: "resources"
+        file: "content/resources.json"
+        fields:
+          - label: "Resources"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string", hint: "Link to file or page" }
+
+  - name: "newsletters"
+    label: "Newsletters"
+    editor:
+      preview: false
+    files:
+      - label: "Newsletters"
+        name: "newsletters"
+        file: "content/newsletters.json"
+        fields:
+          - label: "Newsletters"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "string", hint: "YYYY-MM or Month YYYY" }
+              - { label: "URL", name: "url", widget: "string" }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Resources</title>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container flex between center">
+      <a class="logo" href="index.html">Pieceful Patchers of the Park</a>
+      <button class="nav-toggle" aria-label="Open Menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main Navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="membership.html">Membership</a></li>
+          <li><a href="spotlight.html">Spotlight</a></li>
+          <li><a class="active" href="index.html#members-heading">Members</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1>Member Resources</h1>
+    <div class="gate" id="members-gate" style="margin-bottom: .75rem;">
+      <label for="members-password" class="sr-only">Password</label>
+      <input type="password" id="members-password" placeholder="Enter password" aria-label="Members password" />
+      <button class="btn primary" id="members-enter" type="button">Enter</button>
+      <label class="tiny" style="display:inline-flex; align-items:center; gap:.25rem; margin-left:.5rem;">
+        <input type="checkbox" id="members-show" aria-label="Show password" /> Show
+      </label>
+      <span id="members-caps" class="tiny" style="color:#92400e; display:none; margin-left:.5rem;">Caps Lock is ON</span>
+      <span id="members-error" class="tiny" style="color:#c2410c; display:none; margin-left:.5rem;">Incorrect password. Please try again.</span>
+    </div>
+    <div class="content hidden" id="members-content">
+      <div id="resources-list" class="grid two"></div>
+      <div style="margin-top:.75rem;">
+        <button class="btn" id="members-logout" type="button">Logout</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container grid two">
+      <div>
+        <h4>Pieceful Patchers of the Park</h4>
+        <p>We foster creativity, community, and continued learning in the quilting arts.</p>
+      </div>
+      <div>
+        <h4>Stay in Touch</h4>
+        <p>Email: <a href="mailto:inaminute083@yahoo.com">inaminute083@yahoo.com</a></p>
+      </div>
+    </div>
+    <div class="container tiny">© <span id="year"></span> Pieceful Patchers of the Park. All rights reserved.</div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

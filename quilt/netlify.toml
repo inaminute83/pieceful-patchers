@@ -1,0 +1,15 @@
+[build]
+publish = "."
+command = ""
+
+# Avoid aggressive caching during development previews
+[[headers]]
+for = "/*"
+  [headers.values]
+  Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Redirect /admin to admin/index.html (optional safety)
+[[redirects]]
+from = "/admin"
+to = "/admin/"
+status = 301
