@@ -1,5 +1,11 @@
 {
   "heroLine1": "Pieceful Patchers",
   "heroLine2": " ",
-  "siteName": " "
+  "siteName": " ",
+  "featuredImages": {
+    "img1": "/assets/img/uploads/1000025311.jpg",
+    "img2": "/assets/img/uploads/1000025322.jpg",
+    "img3": "/assets/img/uploads/1000025317.jpg"
+  },
+  "spotlightImage": "/assets/img/uploads/1000025340.jpg"
 }
