@@ -15,28 +15,398 @@
     if (y) y.textContent = new Date().getFullYear();
   }
 
+  // Hospitality & Dark Horse page renderer
+  async function hydrateHospitalityPage(){
+    var grid = qs('#hospitality-grid');
+    var titleEl = qs('#hosp-title');
+    if (!grid) return;
+    var data = await fetchJSON('content/hospitality.json');
+    if (!data) return;
+    if (titleEl && data.title) titleEl.textContent = data.title;
+    var months = Array.isArray(data.months) ? data.months : [];
+    grid.innerHTML = months.map(function(m){
+      var label = String(m.label||'');
+      var items = Array.isArray(m.items) ? m.items : [];
+      var lines = items.concat(Array(Math.max(0, 6 - items.length)).fill(''));
+      return (
+        '<div class="hosp-card">'+
+          '<h3>'+escapeHTML(label)+'</h3>'+
+          '<ol>'+ lines.map(function(line){ return '<li>'+escapeHTML(String(line||''))+'</li>'; }).join('') +'</ol>'+
+        '</div>'
+      );
+    }).join('');
+  }
+
+  // On-demand loader for jsPDF
+  var jsPdfReady = null;
+  function ensureJsPdf(){
+    if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    if (jsPdfReady) return jsPdfReady;
+    jsPdfReady = new Promise(function(resolve, reject){
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      s.onload = function(){
+        try { resolve(window.jspdf.jsPDF); } catch(e){ reject(e); }
+      };
+      s.onerror = function(){ reject(new Error('Failed to load jsPDF')); };
+      document.head.appendChild(s);
+    });
+    return jsPdfReady;
+  }
+
+  // Build a PDF from images found in a panel's gallery
+  async function generatePdfForPanel(panel, filename){
+    try{
+      var JS = await ensureJsPdf();
+      var doc = new JS({ unit: 'pt', format: 'letter' }); // 612x792pt
+      var pageW = doc.internal.pageSize.getWidth();
+      var pageH = doc.internal.pageSize.getHeight();
+      var margin = 36; // 0.5in
+      var maxW = pageW - margin*2;
+      var y = margin;
+
+      // Optional title at top
+      var titleEl = panel.querySelector('h3');
+      if (titleEl){
+        doc.setFont('helvetica','bold');
+        doc.setFontSize(14);
+        doc.text(titleEl.textContent.trim(), margin, y);
+        y += 18;
+      }
+
+      var figs = Array.from(panel.querySelectorAll('.panel-gallery figure'));
+      if (figs.length === 0){ alert('No images found to include in the PDF.'); return; }
+
+      // For readability: 1 image per page with caption
+      for (var i=0;i<figs.length;i++){
+        var imgEl = figs[i].querySelector('img');
+        var caption = (figs[i].querySelector('figcaption')?.textContent || '').trim();
+        if (!imgEl) continue;
+
+        // Draw image onto canvas to get data URL
+        var dataUrl = await imageToDataUrl(imgEl);
+        // Compute scaled size
+        var naturalW = imgEl.naturalWidth || 1000;
+        var naturalH = imgEl.naturalHeight || 1000;
+        var scale = Math.min(maxW / naturalW, (pageH - margin*2 - 24) / naturalH);
+        var drawW = Math.max(1, Math.floor(naturalW * scale));
+        var drawH = Math.max(1, Math.floor(naturalH * scale));
+
+        // New page except first
+        if (i>0) doc.addPage();
+        y = margin;
+        doc.addImage(dataUrl, 'JPEG', (pageW - drawW)/2, y, drawW, drawH);
+        y += drawH + 12;
+        if (caption){
+          doc.setFont('helvetica','normal');
+          doc.setFontSize(11);
+          doc.text(caption, margin, y);
+        }
+      }
+
+      doc.save(filename || 'section.pdf');
+    }catch(err){
+      console.warn('PDF generation failed', err);
+      alert('Sorry, PDF generation failed.');
+    }
+  }
+
+  function imageToDataUrl(img){
+    return new Promise(function(resolve, reject){
+      try{
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var w = img.naturalWidth || img.width; var h = img.naturalHeight || img.height;
+        canvas.width = w; canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        // Use JPEG for better size
+        resolve(canvas.toDataURL('image/jpeg', 0.92));
+      }catch(e){ reject(e); }
+    });
+  }
+
+  // Local-only preview for adding more Featured quilts on Home
+  function setupFeaturedDropzone(){
+    var dz = qs('#featured-dropzone');
+    var input = qs('#featured-upload');
+    var grid = qs('.featured-grid');
+    if (!dz || !input || !grid) return;
+
+    function addPreview(file){
+      if (!file || !file.type || !file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function(e){
+        var fig = document.createElement('figure'); fig.className = 'card';
+        var img = document.createElement('img'); img.src = e.target.result; img.alt = file.name;
+        var cap = document.createElement('figcaption'); cap.className = 'tiny'; cap.textContent = file.name;
+        fig.appendChild(img); fig.appendChild(cap);
+        grid.appendChild(fig);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    dz.addEventListener('click', function(){ input.click(); });
+    input.addEventListener('change', function(){ Array.from(input.files||[]).forEach(addPreview); });
+    dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag'); });
+    dz.addEventListener('dragleave', function(){ dz.classList.remove('drag'); });
+    dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('drag'); var files = e.dataTransfer.files||[]; Array.from(files).forEach(addPreview); });
+  }
+
   // Members must re-login on every page load
   function isMembersUnlocked(){ return false; }
 
-  // Render Member Resources page
+  // Render Members-only tabbed sections on resources page
   async function hydrateResourcesPage(){
-    var list = qs('#resources-list');
+    var tabsNav = qs('#member-tabs-nav');
+    var tabsContent = qs('#member-sections');
     var notice = qs('#res-locked');
-    if (!list) return; // not on resources page
+    if (!tabsNav || !tabsContent) return; // not on resources page
     var membersContent = qs('#members-content');
     var unlockedLocal = membersContent && !membersContent.classList.contains('hidden');
     var unlocked = isMembersUnlocked() || unlockedLocal;
-    if (!unlocked){
-      if (notice) notice.style.display = 'block';
-      return;
+    if (!unlocked){ if (notice) notice.style.display = 'block'; return; }
+
+    // Hide notice if any
+    if (notice) notice.style.display = 'none';
+
+    // Load tabs data
+    var data = await fetchJSON('content/member_sections.json');
+    if (!data || !Array.isArray(data.sections)) return;
+
+    // Build tabs
+    tabsNav.innerHTML = '';
+    tabsContent.innerHTML = '';
+
+    data.sections.forEach(function(section, idx){
+      var id = String(section.id || ('sec'+idx));
+      var title = String(section.title || ('Section '+(idx+1)));
+      var desc = section.description ? String(section.description) : '';
+      var images = Array.isArray(section.images) ? section.images : [];
+      var files = Array.isArray(section.pdfs) ? section.pdfs : [];
+      var allowDrop = section.allowLocalDrop === true;
+
+      // Tab button
+      var btn = document.createElement('button');
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-controls', id);
+      btn.textContent = title;
+      if (idx === 0) btn.setAttribute('aria-selected','true'); else btn.setAttribute('aria-selected','false');
+      tabsNav.appendChild(btn);
+
+      // Panel
+      var panel = document.createElement('section');
+      panel.className = 'tab-panel'+(idx===0?' active':'');
+      panel.id = id;
+      panel.setAttribute('role','tabpanel');
+      panel.setAttribute('tabindex','0');
+
+      var header = document.createElement('div');
+      header.className = 'panel-header';
+      var h3 = document.createElement('h3'); h3.textContent = title;
+      header.appendChild(h3);
+      panel.appendChild(header);
+
+      if (desc){
+        var p = document.createElement('p'); p.textContent = desc; panel.appendChild(p);
+      }
+
+      // Gallery (with special grouping for Patterns tab)
+      function createFigure(obj){
+        var fig = document.createElement('figure'); fig.className = 'card';
+        var link = document.createElement('a'); link.href = String(obj.src||''); link.target = '_blank'; link.rel = 'noopener noreferrer';
+        var image = document.createElement('img'); image.src = String(obj.src||''); image.alt = String(obj.caption||'');
+        link.appendChild(image);
+        var cap = document.createElement('figcaption'); cap.className = 'tiny'; cap.textContent = String(obj.caption||'');
+        fig.appendChild(link); fig.appendChild(cap);
+        return fig;
+      }
+
+      if ((section.id||'').toLowerCase() === 'patterns'){
+        var groups = [
+          { title: 'Flower Name Pin', match: function(c){ c=c.toLowerCase(); return c.includes('flower') && c.includes('pin'); } },
+          { title: 'Crayola on Fabric', match: function(c){ c=c.toLowerCase(); return c.includes('crayola') && c.includes('fabric'); } }
+        ];
+        var used = new Set();
+        groups.forEach(function(g){
+          var items = images.filter(function(it, idx){ var ok = g.match(String(it.caption||'')); if (ok) used.add(idx); return ok; });
+          if (items.length === 0) return;
+          var bubble = document.createElement('div'); bubble.className = 'group-bubble';
+          var h4 = document.createElement('h4'); h4.textContent = g.title; bubble.appendChild(h4);
+          var gal = document.createElement('div'); gal.className = 'group-gallery';
+          items.forEach(function(it){ gal.appendChild(createFigure(it)); });
+          bubble.appendChild(gal);
+          var gActions = document.createElement('div'); gActions.className = 'group-actions';
+          // Print group
+          var gPrint = document.createElement('button'); gPrint.type='button'; gPrint.className='btn'; gPrint.textContent='Print group';
+          gPrint.addEventListener('click', function(){
+            try{
+              document.body.classList.add('printing-panel');
+              qsa('#member-sections .tab-panel').forEach(function(p){ p.classList.remove('print-target'); });
+              // Temporarily attach a clone with only this group's gallery
+              var temp = panel.cloneNode(false); var h3c = panel.querySelector('h3'); if (h3c) temp.appendChild(h3c.cloneNode(true));
+              var wrap = document.createElement('div'); wrap.className='panel-gallery';
+              Array.from(gal.children).forEach(function(f){ wrap.appendChild(f.cloneNode(true)); });
+              temp.appendChild(wrap);
+              // Mark and print
+              panel.appendChild(temp); temp.classList.add('print-target');
+              setTimeout(function(){ window.print(); }, 50);
+              window.onafterprint = function(){ document.body.classList.remove('printing-panel'); temp.remove(); window.onafterprint=null; };
+            }catch(_e){}
+          });
+          gActions.appendChild(gPrint);
+          // PDF group
+          var gPdf = document.createElement('button'); gPdf.type='button'; gPdf.className='btn'; gPdf.textContent='Generate PDF';
+          gPdf.addEventListener('click', function(){
+            var temp = panel.cloneNode(false); var h3c = panel.querySelector('h3'); if (h3c) temp.appendChild(h3c.cloneNode(true));
+            var wrap = document.createElement('div'); wrap.className='panel-gallery';
+            Array.from(gal.children).forEach(function(f){ wrap.appendChild(f.cloneNode(true)); });
+            temp.appendChild(wrap);
+            generatePdfForPanel(temp, g.title + '.pdf');
+          });
+          gActions.appendChild(gPdf);
+          bubble.appendChild(gActions);
+          panel.appendChild(bubble);
+        });
+        // Render any leftover images not matched into groups
+        var leftovers = images.filter(function(_it, idx){ return !used.has(idx); });
+        if (leftovers.length){
+          var bubbleOther = document.createElement('div'); bubbleOther.className='group-bubble';
+          var h4o = document.createElement('h4'); h4o.textContent='Other'; bubbleOther.appendChild(h4o);
+          var galO = document.createElement('div'); galO.className='group-gallery';
+          leftovers.forEach(function(it){ galO.appendChild(createFigure(it)); });
+          bubbleOther.appendChild(galO);
+          panel.appendChild(bubbleOther);
+        }
+      } else {
+        var gallery = document.createElement('div');
+        gallery.className = 'panel-gallery';
+        images.forEach(function(img){ gallery.appendChild(createFigure(img)); });
+        panel.appendChild(gallery);
+      }
+
+      // Local dropzone (client-only preview, no upload)
+      if (allowDrop){
+        var dz = document.createElement('div'); dz.className = 'dropzone'; dz.textContent = 'Drop images here or click to add (local preview only)';
+        var input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*'; input.multiple = true; input.style.display='none';
+        dz.addEventListener('click', function(){ input.click(); });
+        function addPreview(file){
+          if (!file || !file.type || !file.type.startsWith('image/')) return;
+          var reader = new FileReader();
+          reader.onload = function(e){
+            var fig = document.createElement('figure'); fig.className = 'card';
+            var image = document.createElement('img'); image.src = e.target.result; image.alt = file.name;
+            var cap = document.createElement('figcaption'); cap.className = 'tiny'; cap.textContent = file.name;
+            fig.appendChild(image); fig.appendChild(cap); gallery.prepend(fig);
+          };
+          reader.readAsDataURL(file);
+        }
+        dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag'); });
+        dz.addEventListener('dragleave', function(){ dz.classList.remove('drag'); });
+        dz.addEventListener('drop', function(e){ e.preventDefault(); dz.classList.remove('drag'); var files = e.dataTransfer.files||[]; Array.from(files).forEach(addPreview); });
+        input.addEventListener('change', function(){ Array.from(input.files||[]).forEach(addPreview); });
+        panel.appendChild(dz);
+        panel.appendChild(input);
+      }
+
+      // Actions: files, print, and PDF generation
+      var actions = document.createElement('div'); actions.className = 'panel-actions';
+      // File links (PDFs)
+      if (files.length){
+        files.forEach(function(f){
+          var a = document.createElement('a'); a.className = 'btn'; a.textContent = String(f.title||'Download');
+          var href = String(f.url||'#');
+          if (href === '#'){
+            a.href = '#'; a.setAttribute('role','button'); a.addEventListener('click', function(e){ e.preventDefault();
+              // Filter images by keywords from the link title (e.g., 'Crayola on Fabric')
+              var titleText = (f.title||'').replace(/\(pdf\)/ig,'').trim();
+              var keywords = titleText.toLowerCase().split(/[^a-z0-9]+/).filter(function(w){ return w && w.length>2; });
+              var figsAll = Array.from(panel.querySelectorAll('.panel-gallery figure'));
+              var figs = figsAll.filter(function(fig){
+                var cap = (fig.querySelector('figcaption')?.textContent||'').toLowerCase();
+                return keywords.every(function(k){ return cap.includes(k); });
+              });
+              if (figs.length === 0) figs = figsAll; // fallback to all images
+              // Temporarily clone a panel with only selected figs for generation
+              var temp = panel.cloneNode(false);
+              var h3c = panel.querySelector('h3'); if (h3c) temp.appendChild(h3c.cloneNode(true));
+              var wrap = document.createElement('div'); wrap.className = 'panel-gallery';
+              figs.forEach(function(fig){ wrap.appendChild(fig.cloneNode(true)); });
+              temp.appendChild(wrap);
+              generatePdfForPanel(temp, (f.title||'section') + '.pdf');
+            });
+          } else {
+            a.href = href; a.target = '_blank';
+          }
+          actions.appendChild(a);
+        });
+      }
+      // Print button for this panel
+      var printBtn = document.createElement('button');
+      printBtn.type = 'button';
+      printBtn.className = 'btn';
+      printBtn.textContent = 'Print this section';
+      printBtn.addEventListener('click', function(){
+        try {
+          document.body.classList.add('printing-panel');
+          // mark this panel as print target
+          qsa('#member-sections .tab-panel').forEach(function(p){ p.classList.remove('print-target'); });
+          panel.classList.add('print-target');
+          // Give styles a tick, then print
+          setTimeout(function(){ window.print(); }, 50);
+          // Cleanup after print event
+          window.onafterprint = function(){
+            document.body.classList.remove('printing-panel');
+            panel.classList.remove('print-target');
+            window.onafterprint = null;
+          };
+        } catch(_e) {}
+      });
+      actions.appendChild(printBtn);
+
+      // Generate PDF button (from this panel's images)
+      var genBtn = document.createElement('button');
+      genBtn.type = 'button';
+      genBtn.className = 'btn';
+      genBtn.textContent = 'Generate PDF';
+      genBtn.addEventListener('click', function(){
+        generatePdfForPanel(panel, (title || 'section')+'.pdf');
+      });
+      actions.appendChild(genBtn);
+
+      if (actions.children.length) panel.appendChild(actions);
+
+      tabsContent.appendChild(panel);
+    });
+
+    function activateTabById(id){
+      var targetBtn = qsa('#member-tabs-nav button').find(function(b){ return b.getAttribute('aria-controls') === id; });
+      if (!targetBtn) return;
+      qsa('#member-tabs-nav button').forEach(function(b){ b.setAttribute('aria-selected', b===targetBtn ? 'true':'false'); });
+      qsa('#member-sections .tab-panel').forEach(function(p){ p.classList.toggle('active', p.id===id); });
     }
-    var data = await fetchJSON('content/resources.json');
-    if (!data || !Array.isArray(data.items)) return;
-    list.innerHTML = data.items.map(function(item){
-      var t = String(item.title || 'Resource');
-      var u = String(item.url || '#');
-      return '<a class="card" href="'+encodeURI(u)+'">'+escapeHTML(t)+'</a>';
-    }).join('');
+
+    // Tabs behavior (click)
+    tabsNav.addEventListener('click', function(e){
+      var btn = e.target.closest('button[role="tab"]');
+      if (!btn) return;
+      var id = btn.getAttribute('aria-controls');
+      activateTabById(id);
+      // reflect in hash
+      try { history.replaceState(null, '', '#tab='+encodeURIComponent(id)); } catch(_e) {}
+    });
+
+    // Preselect via hash (#tab=patterns)
+    function readDesiredTab(){
+      var m = (location.hash || '').match(/#tab=([^&]+)/);
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    var desired = readDesiredTab();
+    if (desired) activateTabById(desired);
+
+    window.addEventListener('hashchange', function(){
+      var d = readDesiredTab();
+      if (d) activateTabById(d);
+    });
   }
 
   // Render Newsletters page with auto-archive (older than 6 months)
@@ -251,7 +621,7 @@
     function unlock(){
       content.classList.remove('hidden');
       gate.classList.add('hidden');
-      // If on resources page, render list immediately post-unlock
+      // If on resources page, render tabs immediately post-unlock
       try { hydrateResourcesPage(); } catch(_e) {}
     }
     function lock(){
@@ -367,9 +737,11 @@
     hydrateNavLabels();
     hydrateHome();
     hydrateEventsPage();
+    hydrateHospitalityPage();
     hydrateResourcesPage();
     hydrateNewslettersPage();
     setupSpotlightUpload();
+    setupFeaturedDropzone();
     setupMembersGate();
     setupWaitlistClipboard();
   });

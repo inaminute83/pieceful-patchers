@@ -98,3 +98,60 @@ collections:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Date", name: "date", widget: "string", hint: "YYYY-MM or Month YYYY" }
               - { label: "URL", name: "url", widget: "string" }
+
+  - name: "member_sections"
+    label: "Members: Sections (Tabs)"
+    editor:
+      preview: false
+    files:
+      - label: "Member Sections"
+        name: "member_sections"
+        file: "content/member_sections.json"
+        fields:
+          - label: "Sections"
+            name: "sections"
+            widget: "list"
+            summary: "{{fields.title}}"
+            hint: "Add tabs like Patterns, Charity, Show & Tell. Reorder to change tab order."
+            fields:
+              - { label: "ID (no spaces)", name: "id", widget: "string", hint: "e.g., patterns, charity, show-tell" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Allow Local Image Drop (preview only)", name: "allowLocalDrop", widget: "boolean", required: false, default: true }
+              - label: "Images"
+                name: "images"
+                widget: "list"
+                summary: "{{fields.caption}}"
+                fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Caption", name: "caption", widget: "string", required: false }
+              - label: "PDF Links"
+                name: "pdfs"
+                widget: "list"
+                summary: "{{fields.title}}"
+                hint: "Set URL to # to auto-generate PDF from images in this section (title words are used to match). Or upload/select a PDF file."
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "URL or Upload", name: "url", widget: "file", required: false }
+
+  - name: "hospitality"
+    label: "Hospitality & Dark Horse"
+    editor:
+      preview: false
+    files:
+      - label: "Hospitality Grid"
+        name: "hospitality"
+        file: "content/hospitality.json"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - label: "Months"
+            name: "months"
+            widget: "list"
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Month Label", name: "label", widget: "string" }
+              - label: "Entries"
+                name: "items"
+                widget: "list"
+                hint: "Six lines per month; leave blank lines for empty slots."
+                field: { label: "Line", name: "line", widget: "string", required: false }

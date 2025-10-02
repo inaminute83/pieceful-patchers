@@ -59,6 +59,10 @@
         <figure class="card"><img src="assets/img/featured2.svg" alt="Star block quilt" /><figcaption class="tiny">Star Blocks</figcaption></figure>
         <figure class="card"><img src="assets/img/featured3.svg" alt="Modern geometric quilt" /><figcaption class="tiny">Modern Geometrics</figcaption></figure>
       </div>
+      <div class="dropzone" id="featured-dropzone">
+        <input type="file" id="featured-upload" accept="image/*" multiple aria-label="Add more featured images" style="display:none" />
+        <p class="tiny">Drop images here or click to add. This only previews locally (no upload). To permanently add, place images in <code>assets/img/</code> and update <code>featuredImages</code> in <code>content/site.json</code>.</p>
+      </div>
     </section>
 
     <section class="features container grid three">
@@ -195,10 +199,23 @@
             <li><a href="#">Volunteer Sign-ups</a></li>
           </ul>
         </div>
+        <div class="card">
+          <h3>Patterns</h3>
+          <p class="tiny">Go to members area → Patterns tab to view and download pattern PDFs.</p>
+          <a class="btn" href="resources.html#tab=patterns">Open Patterns</a>
+        </div>
+        <div class="card">
+          <h3>Charity</h3>
+          <p class="tiny">Guidelines and sizes for our charity quilt projects.</p>
+          <a class="btn" href="resources.html#tab=charity">Open Charity</a>
+        </div>
       </div>
       <div style="margin-top: .75rem; display:flex; gap:.5rem; flex-wrap:wrap;">
         <a class="btn" href="newsletters.html">View Newsletters</a>
         <a class="btn" href="resources.html">Member Resources</a>
+        <a class="btn" href="resources.html#tab=patterns">Patterns</a>
+        <a class="btn" href="resources.html#tab=charity">Charity</a>
+        <a class="btn" href="hospitality.html">Hospitality &amp; Dark Horse</a>
       </div>
       <div style="margin-top: .5rem;">
         <button class="btn" id="members-logout" type="button">Logout</button>

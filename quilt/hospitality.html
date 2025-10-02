@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Member Resources</title>
+  <title>Hospitality & Dark Horse</title>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +22,7 @@
           <li><a href="events.html">Events</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="membership.html">Membership</a></li>
-          <li><a href="spotlight.html">Spotlight</a></li>
-          <li><a class="active" href="index.html#members-heading">Members</a></li>
+          <li><a href="index.html#members-heading">Members</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav>
@@ -31,7 +30,7 @@
   </header>
 
   <main class="container page">
-    <h1>Member Resources</h1>
+    <h1>Hospitality & Dark Horse</h1>
     <div class="gate" id="members-gate" style="margin-bottom: .75rem;">
       <label for="members-password" class="sr-only">Password</label>
       <input type="password" id="members-password" placeholder="Enter password" aria-label="Members password" />
@@ -42,13 +41,12 @@
       <span id="members-caps" class="tiny" style="color:#92400e; display:none; margin-left:.5rem;">Caps Lock is ON</span>
       <span id="members-error" class="tiny" style="color:#c2410c; display:none; margin-left:.5rem;">Incorrect password. Please try again.</span>
     </div>
-    <p id="res-locked" class="tiny" style="display:none; color:#6b7280;">This area is for members only. Enter the password to view resources.</p>
+    <p id="res-locked" class="tiny" style="display:none; color:#6b7280;">This area is for members only. Enter the password to view.</p>
+
     <div class="content hidden" id="members-content">
-      <div class="tabs" id="member-tabs">
-        <div class="tabs-nav" id="member-tabs-nav" role="tablist" aria-label="Member resource sections"></div>
-        <div class="tabs-content" id="member-sections"></div>
-      </div>
-      <div style="margin-top:.75rem;">
+      <h2 id="hosp-title" style="margin-top:0"></h2>
+      <div id="hospitality-grid" class="hosp-grid"></div>
+      <div class="group-actions">
         <button class="btn" id="members-logout" type="button">Logout</button>
       </div>
     </div>

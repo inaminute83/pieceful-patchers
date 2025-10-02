@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "id": "show-tell",
+      "title": "Show & Tell",
+      "description": "Recent member quilts and works-in-progress.",
+      "allowLocalDrop": true,
+      "images": [
+        { "src": "assets/img/featured1.svg", "caption": "Patchwork Showcase" },
+        { "src": "assets/img/featured2.svg", "caption": "Star Blocks" },
+        { "src": "assets/img/featured3.svg", "caption": "Modern Geometrics" }
+      ],
+      "pdfs": [
+        { "title": "Show & Tell Guidelines (PDF)", "url": "#" }
+      ]
+    },
+    {
+      "id": "patterns",
+      "title": "Patterns",
+      "description": "Member-shared quilt patterns and templates.",
+      "allowLocalDrop": true,
+      "images": [
+        { "src": "assets/img/flower-pin-cover.jpg", "caption": "Flower Name Pin – Example" },
+        { "src": "assets/img/flower-name-pin-1.jpg", "caption": "Flower Name Pin – Supplies" },
+        { "src": "assets/img/flower-name-pin-2.jpg", "caption": "Flower Name Pin – Instructions" },
+        { "src": "assets/img/crayola-on-fabric-cover.jpg", "caption": "Crayola on Fabric – Example" },
+        { "src": "assets/img/crayola-on-fabric-1.jpg", "caption": "Crayola on Fabric – Overview & Supplies" },
+        { "src": "assets/img/crayola-on-fabric-2.jpg", "caption": "Crayola on Fabric – Steps & Tips" },
+        { "src": "assets/img/crayola-on-fabric-3.jpg", "caption": "Crayola on Fabric – Heat Setting & Finishing" },
+        { "src": "assets/img/featured1.svg", "caption": "Sample Pattern" }
+      ],
+      "pdfs": [
+        { "title": "Flower Name Pin (PDF)", "url": "#" },
+        { "title": "Crayola on Fabric (PDF)", "url": "#" },
+        { "title": "Pattern Pack (PDF)", "url": "#" }
+      ]
+    },
+    {
+      "id": "charity",
+      "title": "Charity",
+      "description": "Resources and info for charity quilt projects.",
+      "allowLocalDrop": false,
+      "images": [
+        { "src": "assets/img/featured3.svg", "caption": "Charity Project" }
+      ],
+      "pdfs": [
+        { "title": "Charity Guidelines (PDF)", "url": "#" },
+        { "title": "Sizes & Requirements (PDF)", "url": "#" }
+      ]
+    },
+    {
+      "id": "bom",
+      "title": "Block of the Month",
+      "description": "Patterns and instructions for the current BOM.",
+      "allowLocalDrop": false,
+      "images": [
+        { "src": "assets/img/featured2.svg", "caption": "October Star" }
+      ],
+      "pdfs": [
+        { "title": "BOM Instructions (PDF)", "url": "#" },
+        { "title": "Fabric Requirements (PDF)", "url": "#" }
+      ]
+    },
+    {
+      "id": "bylaws",
+      "title": "Bylaws & Forms",
+      "description": "Official documents and membership forms.",
+      "allowLocalDrop": false,
+      "images": [
+        { "src": "assets/img/spotlight-placeholder.svg", "caption": "Documents" }
+      ],
+      "pdfs": [
+        { "title": "Guild Bylaws (PDF)", "url": "#" },
+        { "title": "Membership Application (PDF)", "url": "#" }
+      ]
+    }
+  ]
+}
