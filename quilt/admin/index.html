@@ -6,31 +6,37 @@
   <title>Admin | Pieceful Patchers</title>
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml" />
   <style>
+    html,body{height:100%}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;background:#f7f7fb;color:#111;margin:0}
-    .wrap{max-width:980px;margin:2rem auto;padding:0 1rem}
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .wrap{max-width:980px;margin:0 auto;padding:0 1rem;display:flex;flex-direction:column;min-height:100vh}
+    /* When CMS is active, hide our wrapper so CMS can sit at the very top */
+    body.cms-active .wrap{ display:none; }
+    header{position:sticky;top:0;z-index:1000;background:#f7f7fb;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-bottom:1px solid #e5e7eb;padding:.5rem 0}
     .logo{font-weight:700}
-    .notice{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:1rem;margin:1rem 0}
     .hidden{display:none}
+    /* Pin how-to box to bottom of the page in admin wrapper */
+    #howto{ margin-top:auto }
+
+    /* Decap CMS layout tweaks to keep collections sidebar usable */
+    /* Ensure CMS root stretches to viewport height */
+    #nc-root, .nc-app { min-height: 100vh; }
+    /* Make any sidebar-like containers scroll if overflowed */
+    [class*="Sidebar"], [class*="sidebar"] { overflow: auto; max-height: calc(100vh - 64px); }
+    /* Split panes sometimes need explicit heights */
+    [class*="SplitPane"], [class*="Pane"] { min-height: 0; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="logo">Pieceful Patchers Admin</div>
-      <a href="/" style="text-decoration:none">← Back to site</a>
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <span id="admin-build-version" class="tiny" style="font-size:.75rem;color:#6b7280;">v-2025-10-03-1603</span>
+        <a href="/" style="text-decoration:none">← Back to site</a>
+      </div>
     </header>
     
-    <div class="notice" style="margin-top:.5rem">
-      <h2 style="margin-top:0">How to edit</h2>
-      <ul style="margin:.5rem 0 0 1.2rem">
-        <li>Open a collection on the left (e.g., <em>Site Content</em>, <em>Events</em>, <em>Member Resources</em>, <em>Newsletters</em>, <em>Members: Sections (Tabs)</em>, <em>Hospitality & Dark Horse</em>).</li>
-        <li>Edit fields and click <strong>Save</strong> → <strong>Publish</strong>. Changes auto‑deploy.</li>
-        <li>Upload images to <code>assets/img/uploads/</code>. Use the image picker fields.</li>
-        <li>Members pages password: <code>Quilt2025</code>.</li>
-      </ul>
-      <p class="tiny" style="margin:.5rem 0 0">Full guide: <a href="/README_EDITING.md" target="_blank" rel="noopener">README_EDITING.md</a></p>
-    </div>
+    
 
     <div id="identity-setup" class="notice">
       <h2>First-time setup</h2>
@@ -42,11 +48,23 @@
     </div>
 
     <button id="login" class="notice">Login</button>
+
+    <div id="howto" class="notice" style="margin-top:.5rem">
+      <h2 style="margin-top:0">How to edit</h2>
+      <ul style="margin:.5rem 0 0 1.2rem">
+        <li>Open a collection on the left (e.g., <em>Site Content</em>, <em>Events</em>, <em>Member Resources</em>, <em>Newsletters</em>, <em>Members: Sections (Tabs)</em>, <em>Hospitality & Dark Horse</em>).</li>
+        <li>Edit fields and click <strong>Save</strong> → <strong>Publish</strong>. Changes auto‑deploy.</li>
+        <li>Upload images to <code>assets/img/uploads/</code>. Use the image picker fields.</li>
+        <li>Members pages password: <code>Quilt2025</code>.</li>
+      </ul>
+      <p class="tiny" style="margin:.5rem 0 0">Full guide: <a href="/README_EDITING.md" target="_blank" rel="noopener">README_EDITING.md</a></p>
+    </div>
   </div>
 
   <!-- Netlify Identity Widget (for login) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <!-- Decap CMS (Netlify CMS) -->
+  <script>window.CMS_MANUAL_INIT = true;</script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
     // Show/Hide first-time setup note depending on Identity
@@ -68,6 +86,135 @@
         alert('Netlify Identity not available. Make sure Identity and Git Gateway are enabled in Netlify.');
       }
     });
+
+    // Inject CSS tweaks directly into Decap CMS once it loads
+    function injectCMSFixes(){
+      try {
+        var css = `
+          :root { --cms-header-h: 56px; }
+          html, body, #nc-root, .nc-app { height: 100%; min-height: 100vh; }
+          body { margin: 0 !important; }
+          /* Hide non-CMS content entirely when CMS is active */
+          body.cms-active > *:not(#nc-root) { display: none !important; }
+          /* Pin CMS header to the very top */
+          .nc-appHeader { position: fixed !important; top: 0 !important; left: 0; right: 0; z-index: 2000 !important; height: var(--cms-header-h); }
+          /* Ensure the main area doesn't sit under the fixed header */
+          .nc-main, [data-testid="main"], [class*="Main"] { padding-top: var(--cms-header-h) !important; min-height: calc(100vh - var(--cms-header-h)) !important; }
+          /* Make the collections sidebar scroll and account for header height */
+          .nc-sidebar, [data-testid="sidebar"], [class*="Sidebar"] {
+            overflow: auto !important;
+            max-height: calc(100vh - var(--cms-header-h)) !important;
+            position: sticky !important;
+            top: var(--cms-header-h) !important;
+          }
+          /* Allow panes to size correctly */
+          [class*="SplitPane"], [class*="Pane"] { min-height: 0 !important; }
+        `;
+        var style = document.createElement('style');
+        style.id = 'cms-fixes';
+        style.textContent = css;
+        document.head.appendChild(style);
+
+        // Also inject into Decap CMS iframe (CMS renders inside an iframe)
+        function tryInjectIntoIframe(){
+          var iframes = Array.prototype.slice.call(document.getElementsByTagName('iframe'));
+          for (var i = 0; i < iframes.length; i++) {
+            var f = iframes[i];
+            try {
+              var doc = f.contentDocument || f.contentWindow && f.contentWindow.document;
+              if (!doc) continue;
+              // Heuristic: only inject once per iframe
+              if (doc && !doc.getElementById('cms-fixes')) {
+                var s = doc.createElement('style');
+                s.id = 'cms-fixes';
+                s.textContent = css + '\nbody{margin:0 !important;}';
+                (doc.head || doc.documentElement).appendChild(s);
+                // Apply inline fixes inside iframe as well
+                var header = doc.querySelector('.nc-appHeader, [data-testid="app-header"], header[role="banner"]');
+                if (header) { header.style.position = 'fixed'; header.style.top = '0'; header.style.zIndex = '2000'; header.style.height = '56px'; }
+                var sidebar = doc.querySelector('.nc-sidebar, [data-testid="sidebar"], nav[role="navigation"]');
+                if (sidebar) { sidebar.style.overflow = 'auto'; sidebar.style.maxHeight = 'calc(100vh - 56px)'; sidebar.style.position = 'sticky'; sidebar.style.top = '56px'; }
+                var main = doc.querySelector('.nc-main, [data-testid="main"]');
+                if (main) { main.style.minHeight = 'calc(100vh - 56px)'; main.style.paddingTop = '56px'; }
+              }
+            } catch (e) { /* Cross-origin or not ready; skip */ }
+          }
+        }
+        // Attempt multiple times as iframe may load later
+        tryInjectIntoIframe();
+        setTimeout(tryInjectIntoIframe, 300);
+        setTimeout(tryInjectIntoIframe, 1000);
+        setTimeout(tryInjectIntoIframe, 2000);
+      } catch (e) { /* no-op */ }
+    }
+
+    // Decap CMS dispatches a ready event; also run on DOMContentLoaded as fallback
+    document.addEventListener('DOMContentLoaded', injectCMSFixes);
+    window.addEventListener('load', injectCMSFixes);
+    // If Decap CMS global is present, wait a tick and inject
+    if (window.CMS) { setTimeout(injectCMSFixes, 300); }
+
+    // Initialize Decap CMS with explicit config path to avoid fetch errors
+    function initCMS(){
+      if (window.CMS && typeof window.CMS.init === 'function') {
+        try {
+          // Use relative path so it works whether the site is at domain root or a subpath
+          window.CMS.init({ config: { load_config_file: true, config_path: 'config.yml' } });
+        } catch(e) { /* no-op */ }
+      }
+    }
+    if (window.CMS) { initCMS(); }
+    window.addEventListener('load', initCMS);
+
+    // Mark body as CMS-active when Decap mounts so our wrapper hides
+    function flagCMSActive(){
+      // Case 1: Decap renders in-page
+      if (document.getElementById('nc-root')) {
+        document.body.classList.add('cms-active');
+        return;
+      }
+      // Case 2: Decap renders inside an iframe
+      var ifr = document.querySelector('iframe');
+      if (ifr) {
+        document.body.classList.add('cms-active');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', flagCMSActive);
+    window.addEventListener('load', flagCMSActive);
+    setInterval(flagCMSActive, 500);
+
+    // Mutation observer to re-apply inline styles to CMS elements that may re-render
+    (function(){
+      function applyInlineFixes(root){
+        try {
+          var header = root.querySelector('.nc-appHeader, [data-testid="app-header"], header[role="banner"]');
+          if (header) {
+            header.style.position = 'fixed';
+            header.style.top = '0';
+            header.style.zIndex = '2000';
+            header.style.background = header.style.background || '#f7f7fb';
+            header.style.borderBottom = header.style.borderBottom || '1px solid #e5e7eb';
+            header.style.height = '56px';
+          }
+          var sidebar = root.querySelector('.nc-sidebar, [data-testid="sidebar"], nav[role="navigation"]');
+          if (sidebar) {
+            sidebar.style.overflow = 'auto';
+            sidebar.style.maxHeight = 'calc(100vh - 56px)';
+            sidebar.style.position = 'sticky';
+            sidebar.style.top = '56px';
+          }
+          var main = root.querySelector('.nc-main, [data-testid="main"]');
+          if (main) {
+            main.style.minHeight = 'calc(100vh - 56px)';
+            main.style.paddingTop = '56px';
+          }
+        } catch(e) { /* no-op */ }
+      }
+      var obs = new MutationObserver(function(){ applyInlineFixes(document); });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+      // Initial run
+      applyInlineFixes(document);
+    })();
   </script>
 </body>
 </html>
