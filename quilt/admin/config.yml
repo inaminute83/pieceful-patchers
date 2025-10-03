@@ -16,6 +16,7 @@ collections:
       - label: "Main Site Settings"
         name: "settings"
         file: "content/site.json"
+        format: json
         fields:
           - { label: "Site Name", name: "siteName", widget: "string" }
           # Navigation labels
@@ -35,6 +36,28 @@ collections:
           - { label: "Hero Title Line 2", name: "heroLine2", widget: "string" }
           - { label: "Hero Paragraph", name: "heroParagraph", widget: "text", required: false }
           - { label: "Featured Tagline", name: "featuredTagline", widget: "text", required: false }
+          # Featured quilts (use these three slots to avoid list editing bug)
+          - label: "Featured Quilt 1"
+            name: "featured1"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Image", name: "src", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+          - label: "Featured Quilt 2"
+            name: "featured2"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Image", name: "src", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+          - label: "Featured Quilt 3"
+            name: "featured3"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Image", name: "src", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
           - label: "Featured Quilts"
             name: "featuredImages"
             widget: "list"
@@ -56,6 +79,7 @@ collections:
       - label: "Events List"
         name: "events"
         file: "content/events.json"
+        format: json
         fields:
           - label: "Events"
             name: "items"
@@ -74,6 +98,7 @@ collections:
       - label: "Resources List"
         name: "resources"
         file: "content/resources.json"
+        format: json
         fields:
           - label: "Resources"
             name: "items"
@@ -90,6 +115,7 @@ collections:
       - label: "Newsletters"
         name: "newsletters"
         file: "content/newsletters.json"
+        format: json
         fields:
           - label: "Newsletters"
             name: "items"
@@ -107,6 +133,7 @@ collections:
       - label: "Member Sections"
         name: "member_sections"
         file: "content/member_sections.json"
+        format: json
         fields:
           - label: "Sections"
             name: "sections"
@@ -142,6 +169,7 @@ collections:
       - label: "Hospitality Grid"
         name: "hospitality"
         file: "content/hospitality.json"
+        format: json
         fields:
           - { label: "Title", name: "title", widget: "string" }
           - label: "Months"

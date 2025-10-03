@@ -141,6 +141,7 @@
         var cap = document.createElement('figcaption'); cap.className = 'tiny'; cap.textContent = file.name;
         fig.appendChild(img); fig.appendChild(cap);
         grid.appendChild(fig);
+        try{ if (window._ppSyncFeaturedSlideshow) window._ppSyncFeaturedSlideshow(); }catch(_e){}
       };
       reader.readAsDataURL(file);
     }
@@ -537,8 +538,17 @@
     if (data.featuredTagline && featuredTagline) featuredTagline.textContent = data.featuredTagline;
     // Render Featured quilts from site.json so CMS edits show on homepage
     var featuredGrid = qs('.featured-grid');
+    var slideImg = qs('#featured-slide');
+    var slideCap = qs('#featured-slide-caption');
+    var btnPrev = qs('#feat-prev');
+    var btnNext = qs('#feat-next');
     if (featuredGrid) {
-      var list = Array.isArray(data.featuredImages) ? data.featuredImages : [];
+      // Build list from either the fixed slots (featured1..3) or the featuredImages list
+      var fixed = ['featured1','featured2','featured3']
+        .map(function(k){ return data && data[k] ? data[k] : null; })
+        .filter(Boolean);
+      var listFromConfig = Array.isArray(data.featuredImages) ? data.featuredImages.slice() : [];
+      var list = (fixed.length ? fixed : listFromConfig);
       if (list.length) {
         try{
           featuredGrid.innerHTML = list.map(function(item){
@@ -552,6 +562,43 @@
               '</figure>'
             );
           }).join('');
+          // Slideshow setup (if elements present)
+          if (slideImg && slideCap && (btnPrev || btnNext)){
+            var idx = 0;
+            var timer = null;
+            function show(i){
+              if (!list.length) return;
+              idx = (i + list.length) % list.length;
+              var cur = list[idx] || {};
+              var src = String(cur.src||'');
+              var cap = String(cur.caption||'');
+              if (src) slideImg.src = src;
+              slideCap.textContent = cap || '';
+            }
+            function next(){ show(idx+1); }
+            function prev(){ show(idx-1); }
+            function restart(){ if (timer) clearInterval(timer); timer = setInterval(next, 5000); }
+            // Keep slideshow in sync with the grid contents (including local previews)
+            function syncFromGrid(){
+              try{
+                var figs = Array.from(document.querySelectorAll('.featured-grid figure'));
+                var updated = figs.map(function(fig){
+                  var img = fig.querySelector('img');
+                  var cap = fig.querySelector('figcaption');
+                  return { src: img ? img.getAttribute('src') : '', caption: cap ? cap.textContent : '' };
+                }).filter(function(it){ return it.src; });
+                if (updated.length){ list = updated; show(Math.min(idx, list.length-1)); restart(); }
+              }catch(_e){}
+            }
+            // Expose sync globally for dropzone hook
+            window._ppSyncFeaturedSlideshow = syncFromGrid;
+
+            btnNext && btnNext.addEventListener('click', function(e){ e.preventDefault(); next(); restart(); });
+            btnPrev && btnPrev.addEventListener('click', function(e){ e.preventDefault(); prev(); restart(); });
+            show(0); restart();
+            // Initial sync after first render
+            syncFromGrid();
+          }
         }catch(_e){ /* no-op */ }
       }
     }
