@@ -547,7 +547,17 @@
       var fixed = ['featured1','featured2','featured3']
         .map(function(k){ return data && data[k] ? data[k] : null; })
         .filter(Boolean);
-      var listFromConfig = Array.isArray(data.featuredImages) ? data.featuredImages.slice() : [];
+      var listFromConfig = [];
+      if (Array.isArray(data.featuredImages)) {
+        listFromConfig = data.featuredImages.slice();
+      } else if (data.featuredImages && typeof data.featuredImages === 'object') {
+        try {
+          listFromConfig = Object.values(data.featuredImages).map(function(v){
+            if (v && typeof v === 'object') return v; // already {src, caption}
+            return { src: String(v||''), caption: '' };
+          }).filter(function(it){ return it && it.src; });
+        } catch(_e) { listFromConfig = []; }
+      }
       var list = (fixed.length ? fixed : listFromConfig);
       if (list.length) {
         try{
