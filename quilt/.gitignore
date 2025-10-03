@@ -12,3 +12,6 @@ __pycache__/
 # Git / Editor
 .git/
 .vscode/
+ 
+# Local deploy artifacts
+quilt-drop.zip
