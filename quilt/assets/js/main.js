@@ -535,6 +535,26 @@
     if (data.heroLine1 && line1) line1.textContent = data.heroLine1;
     if (data.heroLine2 && line2) line2.textContent = data.heroLine2;
     if (data.featuredTagline && featuredTagline) featuredTagline.textContent = data.featuredTagline;
+    // Render Featured quilts from site.json so CMS edits show on homepage
+    var featuredGrid = qs('.featured-grid');
+    if (featuredGrid) {
+      var list = Array.isArray(data.featuredImages) ? data.featuredImages : [];
+      if (list.length) {
+        try{
+          featuredGrid.innerHTML = list.map(function(item){
+            var src = String(item.src||'').trim();
+            var cap = String(item.caption||'').trim();
+            if (!src) return '';
+            return (
+              '<figure class="card">'+
+                '<img src="'+encodeURI(src)+'" alt="'+escapeHTML(cap || 'Featured quilt')+'" />'+
+                '<figcaption class="tiny">'+escapeHTML(cap || '')+'</figcaption>'+
+              '</figure>'
+            );
+          }).join('');
+        }catch(_e){ /* no-op */ }
+      }
+    }
     if (data.meetingLine && meetingLine){
       // If the element already includes a leading label, replace only the text content
       meetingLine.textContent = data.meetingLine;
