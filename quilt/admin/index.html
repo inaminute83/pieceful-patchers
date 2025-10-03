@@ -11,7 +11,6 @@
     header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
     .logo{font-weight:700}
     .notice{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:1rem;margin:1rem 0}
-    .notice h2{margin:.2rem 0 .5rem;font-size:1.1rem}
     .hidden{display:none}
   </style>
 </head>
@@ -21,12 +20,22 @@
       <div class="logo">Pieceful Patchers Admin</div>
       <a href="/" style="text-decoration:none">← Back to site</a>
     </header>
+    
+    <div class="notice" style="margin-top:.5rem">
+      <h2 style="margin-top:0">How to edit</h2>
+      <ul style="margin:.5rem 0 0 1.2rem">
+        <li>Open a collection on the left (e.g., <em>Site Content</em>, <em>Events</em>, <em>Member Resources</em>, <em>Newsletters</em>, <em>Members: Sections (Tabs)</em>, <em>Hospitality & Dark Horse</em>).</li>
+        <li>Edit fields and click <strong>Save</strong> → <strong>Publish</strong>. Changes auto‑deploy.</li>
+        <li>Upload images to <code>assets/img/uploads/</code>. Use the image picker fields.</li>
+        <li>Members pages password: <code>Quilt2025</code>.</li>
+      </ul>
+      <p class="tiny" style="margin:.5rem 0 0">Full guide: <a href="/README_EDITING.md" target="_blank" rel="noopener">README_EDITING.md</a></p>
+    </div>
 
     <div id="identity-setup" class="notice">
       <h2>First-time setup</h2>
       <ol>
         <li>In Netlify → Identity → Enable Identity → Registration: Invite only.</li>
-        <li>Click "Invite users" and send an invite to your email address.</li>
         <li>In Netlify → Identity → Services → Enable Git Gateway.</li>
         <li>Return here and click the "Login" button below.</li>
       </ol>
