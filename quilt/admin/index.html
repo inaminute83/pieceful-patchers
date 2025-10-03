@@ -26,9 +26,8 @@
 
   <!-- Netlify Identity Widget (for login) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Netlify CMS v2 (stable) manual init -->
-  <script>window.CMS_MANUAL_INIT = true;</script>
-  <script src="https://cdn.jsdelivr.net/npm/netlify-cms-app@2.15.72/dist/netlify-cms.js"></script>
+  <!-- Netlify CMS v2 classic (auto-init, stable) -->
+  <script src="https://unpkg.com/netlify-cms@2.10.192/dist/netlify-cms.js"></script>
   <script>
     (function(){
       // Show any runtime errors visibly on page for debugging
@@ -51,17 +50,8 @@
         })
         .catch(err => status('config.yml fetch failed: ' + (err && err.message || String(err))));
 
-      function init(){
-        if (window.CMS && typeof window.CMS.init === 'function') {
-          try {
-            window.CMS.init({ config: { load_config_file: true, config_path: 'config.yml' } });
-            status('CMS initialized (relative config)');
-          } catch(err) { showErr(err && (err.message||String(err))); }
-        } else {
-          setTimeout(init, 100);
-        }
-      }
-      init();
+      // Classic bundle auto-initializes; no manual init needed
+      status('CMS script loaded (classic v2). Waiting for UI...');
     })();
   </script>
 </body>
