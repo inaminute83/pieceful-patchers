@@ -1,22 +1,96 @@
 {
   "months": [
     {
-      "label": "October"
+      "label": "October",
+      "items": [
+        "Key-Pat Roaldson",
+        "Milk-Barbara Kessler",
+        "Betty Belford",
+        "Virginia Perciaccante",
+        "Julie Perillo"
+      ]
     },
     {
-      "label": "November"
+      "label": "November",
+      "items": [
+        "Key-Dorothy Fleschner",
+        "Milk-Karen Gulotta",
+        "Kathy Priven",
+        "Connie Alchus",
+        "Dinah McCann",
+        "Maryellen McAuliffe"
+      ]
     },
     {
-      "label": "December"
+      "label": "December",
+      "items": [
+        "Key-Karen Donohue",
+        "Milk-Donna Leone",
+        "Ruth Bechtold",
+        "Sue Barbara",
+        "K. C. Johnson"
+      ]
     },
     {
-      "label": "January"
+      "label": "January",
+      "items": [
+        "Key-Pat Cappelli",
+        "Milk-Cathy Boyd",
+        "Karen Haas",
+        "Maureen Moynihan",
+        "Nancy Pappas",
+        "Anna Spatola"
+      ]
     },
     {
-      "label": "February"
+      "label": "February",
+      "items": [
+        "Key-Pat Goodsell",
+        "Milk-Mary",
+        "Joyce Moyce",
+        "Phyllis Curatola",
+        "Ellen Gleason"
+      ]
     },
     {
-      "label": "March"
+      "label": "March",
+      "items": [
+        "Key-Roxanne MacDonald",
+        "Milk-Margaret Moss",
+        "Bonnie Cleary",
+        "Kathy Arning",
+        "Mary Sexton"
+      ]
+    },
+    {
+      "label": "April",
+      "items": [
+        "Key-Pat Downey",
+        "Milk-Angela Milora",
+        "MaryAnn Roth",
+        "Ann Weinblad",
+        "Joan Antonicelli"
+      ]
+    },
+    {
+      "label": "May",
+      "items": [
+        "Key-Jane Bonvicin",
+        "Milk-Linda McLaughlin",
+        "Sabrina Feliciano",
+        "Kathy D'Amour",
+        "Donna Loeven"
+      ]
+    },
+    {
+      "label": "June",
+      "items": [
+        "Key-Joanne Sorrentino",
+        "Milk-Carol Ketchum",
+        "Joni Foote",
+        "Rese Sangirardi",
+        "Rosemary Brix"
+      ]
     }
   ],
   "title": "Hospitality & Dark Horse "
