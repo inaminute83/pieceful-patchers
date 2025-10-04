@@ -68,6 +68,14 @@ main{padding:2rem 0}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem}
 .card img{display:block;width:100%;height:auto;border-radius:10px}
 
+/* Featured slideshow */
+.featured-slideshow{position:relative;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.featured-slideshow img{max-height:360px;object-fit:cover}
+.featured-slideshow .slide-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(17,17,17,.8);color:#fff;border:0;border-radius:999px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.featured-slideshow .slide-nav.prev{left:8px}
+.featured-slideshow .slide-nav.next{right:8px}
+.featured-slideshow figcaption{margin-top:.25rem;text-align:center}
+
 .features.container.grid.three .card h3{margin:.25rem 0}
 
 .split{display:grid;gap:2rem;grid-template-columns:1.2fr .8fr;align-items:start}
