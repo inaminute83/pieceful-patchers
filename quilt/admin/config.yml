@@ -58,14 +58,6 @@ collections:
             fields:
               - { label: "Image", name: "src", widget: "image" }
               - { label: "Caption", name: "caption", widget: "string", required: false }
-          - label: "Featured Quilts"
-            name: "featuredImages"
-            widget: "list"
-            summary: "{{fields.caption}}"
-            hint: "Add as many featured quilts as you like. Reorder to change display order."
-            fields:
-              - { label: "Image", name: "src", widget: "image" }
-              - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
           - { label: "Spotlight Bio", name: "spotlightBio", widget: "text", required: false }
           - { label: "Spotlight Image", name: "spotlightImage", widget: "image", required: false }
           - { label: "Contact Email", name: "contactEmail", widget: "string", required: false }
