@@ -14,13 +14,13 @@
   "heroLine2": "Stitching Together Since 1982",
   "heroParagraph": "Welcome to our vibrant community of quilters where creativity meets tradition. We share patterns, learn techniques and create beautiful quilts together for both loved ones and charity since the group started in 1982.",
   "featuredTagline": "Showcasing a rotating selection of quilts from guild members — crafted with care, love, color and community. Want yours featured? Share yours at our next meeting!",
-  "featured1": { "src": "/assets/img/uploads/blue.jpg", "caption": "Featured 1" },
-  "featured2": { "src": "/assets/img/uploads/class-1.jpg", "caption": "Featured 2" },
-  "featured3": { "src": "/assets/img/uploads/hawaiian-quilt.jpg", "caption": "Featured 3" },
+  "featured1": { "src": "/assets/img/uploads/1000025311.jpg", "caption": "" },
+  "featured2": { "src": "/assets/img/uploads/1000025317.jpg", "caption": "" },
+  "featured3": { "src": "/assets/img/uploads/1000025322.jpg", "caption": "" },
   "featuredImages": [
-    { "src": "/assets/img/uploads/blue.jpg", "caption": "Featured 1" },
-    { "src": "/assets/img/uploads/class-1.jpg", "caption": "Featured 2" },
-    { "src": "/assets/img/uploads/hawaiian-quilt.jpg", "caption": "Featured 3" }
+    { "src": "/assets/img/uploads/1000025311.jpg", "caption": "" },
+    { "src": "/assets/img/uploads/1000025317.jpg", "caption": "" },
+    { "src": "/assets/img/uploads/1000025322.jpg", "caption": "" }
   ],
   "spotlightBio": "Each month we feature a member and their quilting journey. Come to our meeting to see the spotlight live!",
   "spotlightImage": "assets/img/spotlight-placeholder.svg",
