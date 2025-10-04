@@ -9,12 +9,12 @@
   },
   "spotlightImage": "",
   "featured1": {
-    "src": "/assets/img/uploads/blue.jpg"
-  },
-  "featured2": {
     "src": "/assets/img/uploads/1000025317.jpg"
   },
+  "featured2": {
+    "src": "/assets/img/uploads/1000025311.jpg"
+  },
   "featured3": {
-    "src": "/assets/img/uploads/hawaiian-quilt.jpg"
+    "src": "/assets/img/uploads/1000025322.jpg"
   }
 }
