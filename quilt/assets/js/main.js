@@ -564,13 +564,15 @@
       var list = (fixed.length ? fixed : listFromConfig);
       if (list.length) {
         try{
+          var ts = Date.now();
           featuredGrid.innerHTML = list.map(function(item){
             var src = String(item.src||'').trim();
             var cap = String(item.caption||'').trim();
             if (!src) return '';
+            var bust = src + (src.indexOf('?')===-1 ? ('?v='+ts) : ('&v='+ts));
             return (
               '<figure class="card">'+
-                '<img src="'+encodeURI(src)+'" alt="'+escapeHTML(cap || 'Featured quilt')+'" />'+
+                '<img src="'+encodeURI(bust)+'" alt="'+escapeHTML(cap || 'Featured quilt')+'" />'+
                 '<figcaption class="tiny">'+escapeHTML(cap || '')+'</figcaption>'+
               '</figure>'
             );
@@ -598,7 +600,7 @@
               var cur = list[idx] || {};
               var src = String(cur.src||'');
               var cap = String(cur.caption||'');
-              if (src) slideImg.src = src;
+              if (src){ var bust = src + (src.indexOf('?')===-1 ? ('?v='+Date.now()) : ('&v='+Date.now())); slideImg.src = bust; }
               slideCap.textContent = cap || '';
             }
             function next(){ show(idx+1); }
