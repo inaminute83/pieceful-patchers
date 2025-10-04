@@ -569,6 +569,8 @@
             var src = String(item.src||'').trim();
             var cap = String(item.caption||'').trim();
             if (!src) return '';
+            // Ensure leading slash for relative asset paths
+            if (!/^https?:\/\//i.test(src) && src.charAt(0) !== '/') src = '/' + src.replace(/^\/+/, '');
             var bust = src + (src.indexOf('?')===-1 ? ('?v='+ts) : ('&v='+ts));
             return (
               '<figure class="card">'+
@@ -600,7 +602,11 @@
               var cur = list[idx] || {};
               var src = String(cur.src||'');
               var cap = String(cur.caption||'');
-              if (src){ var bust = src + (src.indexOf('?')===-1 ? ('?v='+Date.now()) : ('&v='+Date.now())); slideImg.src = bust; }
+              if (src){
+                if (!/^https?:\/\//i.test(src) && src.charAt(0) !== '/') src = '/' + src.replace(/^\/+/, '');
+                var bust = src + (src.indexOf('?')===-1 ? ('?v='+Date.now()) : ('&v='+Date.now()));
+                slideImg.src = bust;
+              }
               slideCap.textContent = cap || '';
             }
             function next(){ show(idx+1); }
