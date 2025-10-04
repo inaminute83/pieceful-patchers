@@ -1,20 +1,21 @@
 {
+  "featured1": {
+    "src": "/assets/img/uploads/1000025311.jpg"
+  },
   "heroLine1": "Pieceful Patchers",
+  "featured2": {
+    "src": "/assets/img/uploads/1000025317.jpg"
+  },
   "heroLine2": " ",
-  "siteName": " ",
+  "featured3": {
+    "src": "/assets/img/uploads/1000025322.jpg"
+  },
   "featuredImages": {
     "img1": "/assets/img/uploads/1000025311.jpg",
     "img2": "/assets/img/uploads/1000025322.jpg",
     "img3": "/assets/img/uploads/1000025317.jpg"
   },
-  "spotlightImage": "",
-  "featured1": {
-    "src": "/assets/img/uploads/1000025311.jpg"
-  },
-  "featured2": {
-    "src": "/assets/img/uploads/1000025317.jpg"
-  },
-  "featured3": {
-    "src": "/assets/img/uploads/1000025322.jpg"
-  }
+  "spotlightImage": "/assets/img/uploads/1000025725.jpg",
+  "siteName": " ",
+  "spotlightBio": "Stop by the Elmont Library this month to view some beautiful quilts on display."
 }
