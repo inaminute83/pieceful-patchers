@@ -506,7 +506,10 @@
 
   async function fetchJSON(path){
     try{
-      const res = await fetch(path, { cache: 'no-cache' });
+      // Append cache-busting query to ensure we always fetch the latest JSON from the server/CDN
+      var ts = Date.now();
+      var url = path + (path.indexOf('?') === -1 ? ('?v='+ts) : ('&v='+ts));
+      const res = await fetch(url, { cache: 'no-cache' });
       if (!res.ok) throw new Error('HTTP '+res.status);
       return await res.json();
     }catch(err){
@@ -572,6 +575,19 @@
               '</figure>'
             );
           }).join('');
+          // TEMP DEBUG STRIP: show source and URLs used
+          try{
+            var used = list.map(function(it){ return String(it && it.src || '').trim(); }).filter(Boolean);
+            var srcName = fixed.length ? 'featured1/2/3' : (Array.isArray(data.featuredImages) ? 'featuredImages(array)' : (data.featuredImages ? 'featuredImages(object)' : 'none'));
+            var box = document.getElementById('featured-debug');
+            if (!box){
+              box = document.createElement('div'); box.id = 'featured-debug';
+              box.setAttribute('role','status');
+              box.style.cssText = 'position:fixed;right:10px;bottom:10px;z-index:2147483600;background:#111;color:#fff;font:12px/1.4 monospace;padding:.5rem .6rem;border-radius:6px;opacity:.85;max-width:60vw;word-break:break-all;';
+              document.body.appendChild(box);
+            }
+            box.textContent = '[Featured debug] source='+srcName+' | count='+used.length+' | urls='+used.join(', ');
+          }catch(_e){}
           // Slideshow setup (if elements present)
           if (slideImg && slideCap && (btnPrev || btnNext)){
             var idx = 0;
